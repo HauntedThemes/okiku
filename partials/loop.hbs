@@ -1,0 +1,17 @@
+{{!-- This is the post loop - each post will be output using this markup --}}
+<article class="{{post_class}}" data-id={{comment_id}}>
+    <div class="post-inner-content">
+        {{#if feature_image}}
+            <a href="{{url}}" class="feature-image" title="{{title}}" style="background-image: url({{img_url feature_image}});"></a>
+        {{/if}}
+        <div class="inner">
+            <h2 class="post-title"><a href="{{url}}" title="{{title}}">{{title}}</a></h2> 
+            <div class="post-meta">
+                <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMMM YYYY"}}</time>
+                {{#if tags}}
+                <div class="tags">{{tags limit=1}}</div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</article>

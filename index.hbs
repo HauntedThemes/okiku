@@ -1,0 +1,19 @@
+{{!-- The tag below means - insert everything in this file into the {body} of the default.hbs template --}}
+{{!< default}}
+
+{{!-- The main content area --}}
+<main id="content" class="container-fluid" role="main">
+	<div class="row">
+		<div class="col-12">
+			<div class="swiper-main swiper-container">
+				<div class="swiper-wrapper">
+					{{#foreach posts}}
+						<div class="swiper-slide">
+							{{> "loop"}}
+						</div>
+					{{/foreach}}
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
