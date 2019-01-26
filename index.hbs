@@ -5,7 +5,7 @@
 <main id="content" class="container-fluid" role="main">
 	<div class="row">
 		<div class="col-12">
-			<div class="swiper-main swiper-container">
+			<div class="swiper-main loop swiper-container">
 				<div class="swiper-wrapper">
 					{{#foreach posts}}
 						<div class="swiper-slide">
@@ -13,6 +13,8 @@
 						</div>
 					{{/foreach}}
 				</div>
+				<div class="swiper-button-next" data-hover></div>
+    			<div class="swiper-button-prev" data-hover></div>
 			</div>
 		</div>
 	</div>
