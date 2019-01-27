@@ -16,7 +16,7 @@
         
         {{{body}}}
 
-        {{!-- {{> theme_footer}} --}}
+        {{> theme_footer}}
         
         <div class="cursor">
             <div class="cursor__inner cursor__inner--circle"></div>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="menu-column search">
                         <form>
-                            <input id="search-field" placeholder="{{t "Search"}}" autocomplete="off"/>
+                            <input id="search-field" type="text" placeholder="{{t "Search"}}" autocomplete="off"/>
                         </form>
                         <div id="results" class="loop" data-no-results-description='{{t "Your search did not match any articles. Try something else."}}' data-no-results='{{t "No results were found"}}' data-other='{{t "Other"}}' data-bookmark-article='{{t "Bookmark article"}}' data-remove-bookmark='{{t "Remove bookmark"}}'></div>
                     </div>

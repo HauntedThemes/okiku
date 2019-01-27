@@ -119,8 +119,6 @@ jQuery(document).ready(function($) {
                 $.get(nextPage, function (content) {
                     var post = $(content).find('.swiper-main .swiper-slide');
                     swiperMain.appendSlide(post);
-                    swup.cache.remove('/');
-                    swup.preloadPage('/')
                 });
             }
         });
