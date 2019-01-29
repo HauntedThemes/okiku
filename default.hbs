@@ -10,9 +10,9 @@
 </head>
 <body class="{{body_class}} nav-closed">
 
-    <div class="main-container transition-fade" id="swup">
+    {{> theme_header}}
     
-        {{> theme_header}}
+    <div class="main-container transition-fade" id="swup">
         
         {{{body}}}
 
@@ -65,6 +65,12 @@
     {{#if pagination.pages}}
     <script>
         var maxPages = parseInt('{{pagination.pages}}');
+    </script>
+    {{else}}
+    <script>
+        function getSum(total, num) { return total + num; }
+        var getAllPosts = [ {{#get "tags" limit="all" include="count.posts"}} {{#foreach tags}} {{count.posts}}, {{/foreach}} {{/get}} ];
+        var maxPages = Math.ceil(getAllPosts.reduce(getSum)/{{@config.posts_per_page}});
     </script>
     {{/if}}
 

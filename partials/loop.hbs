@@ -2,13 +2,11 @@
 <article class="{{post_class}}" data-id={{comment_id}}>
     <div class="post-inner-content">
         <div class="inner">
-            {{#if feature_image}}
-                <a href="{{url}}" class="feature-image" title="{{title}}" data-image="{{img_url feature_image}}" style="background-image: url({{img_url feature_image}});"></a>
-            {{/if}}
+            <a href="{{url}}" class="feature-image" title="{{title}}" {{#if feature_image}} data-image="{{img_url feature_image}}" style="background-image: url({{img_url feature_image}});" {{/if}}></a>
             <div class="tags">{{tags limit=1}}</div>
             <h2 class="post-title"><a href="{{url}}" title="{{title}}">{{title}}</a></h2> 
             <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMMM YYYY"}}</time>
         </div>
-        <a href="#" class="read-later" data-id="{{id}}"></a>
+        <a href="#" class="read-later" data-id="{{id}}">Read later</a>
     </div>
 </article>

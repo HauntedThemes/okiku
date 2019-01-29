@@ -293,7 +293,7 @@ header{
     position: fixed;
     margin-left: 40px;
     height: 0;
-    width: calc(100% - 80px);
+    width: calc(100% - 70px);
     z-index: 9990;
     display: flex;
     justify-content: space-between;
@@ -319,9 +319,18 @@ header .midnightHeader.black .site-logo span{
     color: #1B1B1B;
 }
 
-header .site-logo,
-header .menu-trigger{
+header .site-logo{
     margin-top: 40px;
+    position: relative;
+}
+
+header .menu-trigger{
+    margin-top: 30px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
 header .site-logo img{
@@ -329,6 +338,26 @@ header .site-logo img{
     max-width: 200px;
     height: auto;
     width: auto;
+}
+
+header .counter{
+    font-size: 14px;
+    font-variant: all-small-caps;
+    font-family: motiva-sans, sans-serif;
+    border-radius: 50%;
+    position: absolute;
+    left: -15px;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+header .midnightHeader.black .counter{
+    color: #1B1B1B;
 }
 
 .swiper-button-next, .swiper-button-prev{
@@ -689,11 +718,15 @@ footer h3{
 
 .share{
     list-style-type: none;
-    margin: -20px 0 50px 0;
+    margin: 0;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.row + .share{
+    margin: -20px 0 50px 0;
 }
 
 .share li{
@@ -724,7 +757,7 @@ footer h3{
 }
 
 .loop .post:hover .read-later{
-    transform: translateY(0);
+    transform: translateY(0) translateX(-50%);
 }
 
 .read-later{
@@ -732,12 +765,19 @@ footer h3{
     bottom: 20px;
     left: 50%;
     border: 1px solid #f4f4f4;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
     margin-left: -10px;
-    transform: translateY(40px);
+    transform: translateY(50px) translateX(-50%);
     transition: transform .5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    font-size: 14px;
+    font-variant: all-small-caps;
+    font-family: motiva-sans, sans-serif;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    white-space: pre;
+    padding: 5px 10px;
 }
 
 /* #menu .nav ul li a:before, #menu .nav ul li a:after {
