@@ -147,6 +147,7 @@ textarea{
     display: flex;
     width: calc(33.33% - 4px);
     overflow: hidden;
+    margin-right: 6px;
 }
 
 .loop .swiper-slide:hover .feature-image{
@@ -292,7 +293,6 @@ html.is-animating .transition-fade{
 header{
     position: fixed;
     margin-left: 40px;
-    height: 0;
     width: calc(100% - 70px);
     z-index: 9990;
     display: flex;
@@ -344,16 +344,19 @@ header .counter{
     font-size: 14px;
     font-variant: all-small-caps;
     font-family: motiva-sans, sans-serif;
-    border-radius: 50%;
     position: absolute;
     left: -15px;
-    top: 10px;
+    top: 12px;
     width: 20px;
     height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     line-height: 1;
+}
+
+header .counter.hidden{
+    display: none;
 }
 
 header .midnightHeader.black .counter{
@@ -778,6 +781,17 @@ footer h3{
     line-height: 1;
     white-space: pre;
     padding: 5px 10px;
+}
+
+.bookmark-container .post-title{
+    max-width: 300px;
+    text-align: center;
+    color: #737373;
+    margin: 30px 0;
+    font-weight: 300;
+    line-height: 28px;
+    font-size: 18px;
+    display: block;
 }
 
 /* #menu .nav ul li a:before, #menu .nav ul li a:after {

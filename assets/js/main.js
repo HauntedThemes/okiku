@@ -7,7 +7,7 @@ jQuery(document).ready(function($) {
     var config = {
         'disqus-shortname': 'hauntedthemes-demo',
         'content-api-host': 'http://localhost:2368',
-        'content-api-key': '8a13e02a8917186f02014db742',
+        'content-api-key': '1bfefb2fd10a5cb7230c8f220b',
     };
 
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
@@ -53,8 +53,9 @@ jQuery(document).ready(function($) {
 
     swup.on('contentReplaced', function () {
         swiperMain = new Swiper('.swiper-main', swiperMainData);
+        loadNextPosts(swiperMain, currentPage, maxPages, pathname);
+        $('#menu').modal('hide');
         $('header').midnight();
-        loadNextPosts(swiperMain, currentPage, maxPages, pathname)
         // cursor = new CursorFx(document.querySelector('.cursor'));
     });
 
@@ -177,10 +178,6 @@ jQuery(document).ready(function($) {
                 $('.read-later[data-id="' + id + '"]').each(function(index, el) {
                     $(this).toggleClass('active');
                 });
-                $('header .counter').addClass('shake');
-                setTimeout(function() {
-                    $('header .counter').removeClass('shake');
-                }, 300);
                 Cookies.set('okiku-read-later', readLaterPosts, {
                     expires: 365
                 });
@@ -252,7 +249,7 @@ jQuery(document).ready(function($) {
                             $('.read-later[data-id="'+ id +'"]').each(function(index, el) {
                                 $(this).toggleClass('active');
                             });
-                            Cookies.set('poveglia-read-later', readLaterPosts, { expires: 365 });
+                            Cookies.set('okiku-read-later', readLaterPosts, { expires: 365 });
                             bookmarks(readLaterPosts);
                         });
                     });
