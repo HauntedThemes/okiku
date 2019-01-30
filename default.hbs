@@ -66,12 +66,6 @@
     <script>
         var maxPages = parseInt('{{pagination.pages}}');
     </script>
-    {{else}}
-    <script>
-        function getSum(total, num) { return total + num; }
-        var getAllPosts = [ {{#get "tags" limit="all" include="count.posts"}} {{#foreach tags}} {{count.posts}}, {{/foreach}} {{/get}} ];
-        var maxPages = Math.ceil(getAllPosts.reduce(getSum)/{{@config.posts_per_page}});
-    </script>
     {{/if}}
 
     <script type="text/javascript" src="{{asset "js/main.js"}}"></script>

@@ -25,13 +25,14 @@
 {{/if}}
 <main id="content" role="main" data-id="{{comment_id}}">
     <article class="{{post_class}}">
-        <div class="post-header responsive-header-img-{{slug}} rellax" data-rellax-speed="4">
+        <div class="post-header responsive-header-img-{{slug}} rellax" data-rellax-speed="7">
             <div class="inner">
                 <div class="tags">{{tags limit=1}}</div>
                 <h1 class="post-title">{{title}}</h1> 
                 <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMMM YYYY"}}</time>
             </div>
             <a href="#post-content" class="view-more"></a>
+            <span class="simulate-bg"></span>
         </div>
         <div class="post-content" id="post-content" data-midnight="black">
             <div class="container">
@@ -41,7 +42,50 @@
                     </div>
                 </div>
             </div>
+            <div class="progress"></div>
         </div>
+        <div class="post-footer" data-midnight="black">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 ml-auto mr-auto">
+                        <div class="post-meta">
+                            <span class="tags">{{tags separator=' '}}</span>
+                        </div>
+                        <div class="authors">
+                            {{#if authors}}
+                                {{#foreach authors}}
+                                <section class="intro">
+                                    <div class="intro-meta">
+                                        {{#if profile_image}}
+                                        <figure class="intro-image">
+                                            <a class="img" href="{{url}}" title="{{name}}"><img src="{{img_url profile_image size="xs"}}" alt="{{name}}"></a>
+                                        </figure>
+                                        {{/if}}
+                                        <div class="inner">
+                                            <h3><strong><a href="{{url}}">{{name}}</a></strong></h3>
+                                            {{#if bio}}
+                                                <p>{{bio}}</p>
+                                            {{else}}
+                                            <p>{{t "Please set your author's bio."}}</p>
+                                            {{/if}}
+                                        </div>
+                                    </div>
+                                </section>
+                                {{/foreach}}
+                            {{/if}}
+                        </div>
+                        <div class="comments"><a href="#" class="btn">{{t "Write a comment"}}</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="share">
+            <li><a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u={{url absolute="true"}}" data-toggle="tooltip" data-placement="top" onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;" title="{{t "Share on Facebook"}}"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+            <li><a class="twitter" href="https://twitter.com/share?text={{encode title}}&amp;url={{url absolute="true"}}" data-toggle="tooltip" data-placement="top" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;" title="{{t "Share on Twitter"}}"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+            <li><a href="https://plus.google.com/share?url={{url absolute="true"}}" class="google-plus" data-toggle="tooltip" data-placement="top" title="{{t "Share on Google+"}}"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a></li>
+            <li><a href="https://www.reddit.com/submit?url={{url absolute="true"}}%2F&title={{encode title}}" data-toggle="tooltip" data-placement="top" class="reddit" title="{{t "Share on Reddit"}}"><i class="fab fa-reddit-alien" aria-hidden="true"></i></a></li>
+            <li><a href="mailto:?subject={{encode title}}&amp;body={{url absolute="true"}}" data-toggle="tooltip" data-placement="top" class="email" title="{{t "Share by Email"}}"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+        </ul>
     </article>
 </main>
 
@@ -50,14 +94,14 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="loop">
-                    {{#prev_post}}
-                        {{> "loop"}}
-                        <a href="{{url}}" class="prev-post">Prev post</a>
-                    {{/prev_post}}
                     {{#next_post}}
                         {{> "loop"}}
-                        <a href="{{url}}" class="next-post">Next post</a>
+                        <a href="{{url}}" class="next-post">{{t "Next post"}}</a>
                     {{/next_post}}
+                    {{#prev_post}}
+                        {{> "loop"}}
+                        <a href="{{url}}" class="prev-post">{{t "Prev post"}}</a>
+                    {{/prev_post}}
                 </div>
             </div>
         </div>

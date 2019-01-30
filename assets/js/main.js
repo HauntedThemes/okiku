@@ -7,7 +7,7 @@ jQuery(document).ready(function($) {
     var config = {
         'disqus-shortname': 'hauntedthemes-demo',
         'content-api-host': 'http://localhost:2368',
-        'content-api-key': '1bfefb2fd10a5cb7230c8f220b',
+        'content-api-key': '8a13e02a8917186f02014db742',
     };
 
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
@@ -26,6 +26,8 @@ jQuery(document).ready(function($) {
     var currentPage = 1;
     var pathname = window.location.pathname;
     var $result = $('.post');
+
+    var instance = $('.bookmark-container').overlayScrollbars({ }).overlayScrollbars();
 
     setGalleryRation();
 
@@ -47,19 +49,127 @@ jQuery(document).ready(function($) {
     };
 
     var swiperMain = new Swiper('.swiper-main', swiperMainData);
-    var swup = new Swup({
-        animateHistoryBrowsing: true
-    });
-
-    swup.on('contentReplaced', function () {
-        swiperMain = new Swiper('.swiper-main', swiperMainData);
-        loadNextPosts(swiperMain, currentPage, maxPages, pathname);
-        $('#menu').modal('hide');
-        $('header').midnight();
-        // cursor = new CursorFx(document.querySelector('.cursor'));
-    });
-
     $('header').midnight();
+
+    // Make all images from gallery ready to be zoomed
+    $('.kg-gallery-image img').each(function(index, el) {
+        $( "<a href='" + $(this).attr('src') + "' class='zoom'></a>" ).insertAfter( $(this) );
+        $(this).appendTo($(this).next("a"));
+    });
+
+    $('.zoom').fluidbox();
+
+    // var headerHeight = $('header').innerHeight();
+
+    // $.jScrollability([
+    //     {
+    //         'selector': '.simulate-bg',
+    //         'start': h,
+    //         'end': h*2-headerHeight-50,
+    //         'fn': function($el,pcnt) {
+    //             $el.css({
+    //               'opacity': (pcnt)
+    //             });
+    //         }
+    //     }
+    // ]);
+
+    // $(window).on('resize', function (e) {
+    //     w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    //     h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+    //     $.jScrollability([
+    //         {
+    //             'selector': '.simulate-bg',
+    //             'start': h,
+    //             'end': h*2,
+    //             'fn': function($el,pcnt) {
+    //                 $el.css({
+    //                   'opacity': ((pcnt))
+    //                 });
+    //             }
+    //         }
+    //     ]);
+
+    // });
+
+    // $(window).on('scroll', function (e) {
+    //     var scrollTop = $(window).scrollTop();
+    //     if((scrollTop + headerHeight + 100) > h){
+    //         $('body').addClass('active-header');
+    //     }else{
+    //         $('body').removeClass('active-header');
+    //     }
+    // });
+
+    $(window).on('scroll', function(event) {
+
+        w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+        $('.zoom').fluidbox('close');
+        if ($('.post-template').length) {
+            progressBar();
+        };
+    });
+
+    // anime({
+    //     targets: '#content .share li',
+    //     translateX: 100,
+    //     delay: anime.stagger(50),
+    //     opacity: 1,
+    //     begin: function(anim) {
+    //         $('#content .share').addClass('begin');
+    //     },
+    //     complete: function(anim) {
+    //         $('#content .share').addClass('complete');
+    //     }
+    // });
+
+    // Progress bar for inner post
+    function progressBar(){
+        var postContentOffsetTop = $('.post-content').offset().top;
+        var postContentHeight = $('.post-content').height();
+        if ($(window).scrollTop() > postContentOffsetTop && $(window).scrollTop() < (postContentOffsetTop + postContentHeight)) {
+            var heightPassed = $(window).scrollTop() - postContentOffsetTop;
+            var percentage = heightPassed * 100/postContentHeight;
+            $('.progress').css({
+                width: percentage + '%'
+            });
+            if(!$('#content .share').hasClass('begin')){
+                anime({
+                    targets: '#content .share li',
+                    translateX: 100,
+                    delay: anime.stagger(50),
+                    begin: function(anim) {
+                        $('#content .share').addClass('begin');
+                    },
+                });
+            }
+        }else if($(window).scrollTop() < postContentOffsetTop){
+            $('.progress').css({
+                width: '0%'
+            });
+            if($('#content .share').hasClass('begin')){
+                $('#content .share').removeClass('begin');
+                anime({
+                    targets: '#content .share li',
+                    translateX: -20,
+                });
+            }
+        }else{
+            if($('#content .share').hasClass('begin')){
+                $('#content .share').removeClass('begin');
+                anime({
+                    targets: '#content .share li',
+                    translateX: -20,
+                });
+            }
+            $('.progress').css({
+                width: '100%'
+            });
+        };
+    }
 
     $('#menu').on('shown.bs.modal', function (e) {
         anime({
@@ -72,6 +182,8 @@ jQuery(document).ready(function($) {
             targets: '.no-bookmarks, .search form',
             opacity: 1
         });
+        instance.destroy();
+        instance = $('.bookmark-container').overlayScrollbars({ }).overlayScrollbars();
     })
 
     $('#menu').on('hidden.bs.modal', function (e) {
@@ -85,8 +197,8 @@ jQuery(document).ready(function($) {
     })
 
     var ghostSearch = new GhostSearch({
-        host: 'http://localhost:2368',
-        key: '1bfefb2fd10a5cb7230c8f220b',
+        host: config['content-api-host'],
+        key: config['content-api-key'],
         results: '#results',
         input: '#search-field',
         on: {
@@ -144,11 +256,13 @@ jQuery(document).ready(function($) {
         });
     }
 
-    if($('.rellax').length){
-        var rellax = new Rellax('.rellax', {
-            center: true,
-        });
+    function enableRelax(){
+        if($('.rellax').length){
+            var rellax = new Rellax('.rellax');
+        }
     }
+
+    enableRelax();
 
     // Check 'read later' posts 
     if (typeof Cookies.get('okiku-read-later') !== "undefined") {
@@ -215,24 +329,20 @@ jQuery(document).ready(function($) {
                         var date = moment(dateSplit[2]+'-'+dateSplit[1]+'-'+dateSplit[0], "DD-MM-YYYY").format('DD MMM YYYY');
                         var tag = '';
                         if(result.primary_tag){
-                            tag = '<span class="tags"><a href="/tag/'+ result.primary_tag.slug +'">'+ result.primary_tag.name +'</a></span>';
+                            tag = '<div class="tags"><a href="/tag/'+ result.primary_tag.slug +'">'+ result.primary_tag.name +'</a></div>';
                         }
                         var str = '\
                         <div class="item"> \
-                         <article> \
-                           <div class="post-inner-content"> \
-                               <p> \
-                                 <a href="/' + result.slug + '/" class="post-title" title="' + result.title + '"><strong>' + result.title + '</strong></a> \
-                               </p> \
-                           </div> \
-                           <div class="post-meta"> \
-                               <time datetime="' + result.published_at + '">' + date + '</time>' + tag + ' \
-                               <div class="inner"> \
-                                 <a href="https://twitter.com/share?text=' + encodeURIComponent(result.title) + '&amp;url=' + url + result.slug + '" class="twitter" onclick="window.open(this.href, \'share-twitter\', \'width=550,height=235\');return false;"><i class="fab fa-twitter"></i></a> \
-                                 <a href="#" class="read-later active" data-id="' + result.id + '"><i class="far fa-bookmark"></i></a> \
-                               </div> \
-                           </div> \
-                         </article> \
+                            <article> \
+                                <div class="post-inner-content"> \
+                                    ' + tag + '  \
+                                    <p> \
+                                        <a href="/' + result.slug + '/" class="post-title" title="' + result.title + '"><strong>' + result.title + '</strong></a> \
+                                    </p> \
+                                    <time datetime="' + result.published_at + '">' + date + '</time> \
+                                </div> \
+                                <a href="#" class="read-later active" data-id="' + result.id + '"><i class="far fa-bookmark"></i></a> \
+                            </article> \
                         </div>';
                         $('.bookmark-container').append(str);
                     });
