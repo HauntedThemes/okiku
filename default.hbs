@@ -25,31 +25,6 @@
 
     </div>
 
-    <!-- Menu Modal -->
-    <div class="modal fade" id="menu" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="menu-column bookmarks">
-                        <div class="bookmark-container">
-                            <p class="no-bookmarks">{{{t "You haven't yet saved any bookmarks. To bookmark a post, just click <i class='far fa-bookmark'></i>."}}}</p>
-                        </div>
-                    </div>
-                    <div class="menu-column navigation">
-                        {{navigation}}
-                    </div>
-                    <div class="menu-column search">
-                        <form>
-                            <input id="search-field" type="text" placeholder="{{t "Search"}}" autocomplete="off"/>
-                        </form>
-                        <div id="results" class="loop" data-no-results-description='{{t "Your search did not match any articles. Try something else."}}' data-no-results='{{t "No results were found"}}' data-other='{{t "Other"}}' data-bookmark-article='{{t "Bookmark article"}}' data-remove-bookmark='{{t "Remove bookmark"}}'></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
     {{!-- Ghost Content API --}}
     <script type="text/javascript" src="https://unpkg.com/@tryghost/content-api@1.0.0/umd/content-api.min.js"></script>
 

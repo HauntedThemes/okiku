@@ -18,3 +18,36 @@
         </a>
     </div>
 </header>
+
+<!-- Menu Modal -->
+<div class="modal fade" id="menu" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="menu-column bookmarks">
+                    <h4>{{t "Bookmarks"}}</h4>
+                    <div class="inner">
+                        <div class="bookmark-container loop">
+                            <p class="no-bookmarks">{{{t "You haven't yet saved any bookmarks. To bookmark a post, just click <i class='far fa-bookmark'></i>."}}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-column navigation">
+                    <h4>{{t "Menu"}}</h4>
+                    <div class="inner">
+                        {{navigation}}
+                    </div>
+                </div>
+                <div class="menu-column search">
+                    <h4>{{t "Search"}}</h4>
+                    <div class="inner">
+                        <form>
+                            <input id="search-field" type="text" placeholder="{{t "Search"}}" autocomplete="off"/>
+                        </form>
+                        <div id="results" class="loop" data-no-results-description='{{t "Your search did not match any articles. Try something else."}}' data-no-results='{{t "No results were found"}}' data-other='{{t "Other"}}' data-bookmark-article='{{t "Bookmark article"}}' data-remove-bookmark='{{t "Remove bookmark"}}'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

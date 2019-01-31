@@ -113,18 +113,25 @@ jQuery(document).ready(function($) {
         };
     });
 
-    // anime({
-    //     targets: '#content .share li',
-    //     translateX: 100,
-    //     delay: anime.stagger(50),
-    //     opacity: 1,
-    //     begin: function(anim) {
-    //         $('#content .share').addClass('begin');
-    //     },
-    //     complete: function(anim) {
-    //         $('#content .share').addClass('complete');
-    //     }
-    // });
+    $('.swiper-main .swiper-slide').each(function(index, el) {
+        $(this).on('mouseenter', function (e) {
+            var index = $(this).index()+1;
+            anime({
+                targets: '.swiper-main .swiper-slide:nth-child('+ index +') .share li',
+                translateY: -60,
+                delay: anime.stagger(50),
+                opacity: 1,
+            });
+        });
+        $(this).on('mouseleave', function (e) {
+            var index = $(this).index()+1;
+            anime.remove('.swiper-main .swiper-slide:nth-child('+ index +') .share li');
+            anime({
+                targets: '.swiper-main .swiper-slide:nth-child('+ index +') .share li',
+                translateY: 60,
+            });
+        });
+    });
 
     // Progress bar for inner post
     function progressBar(){
@@ -182,16 +189,40 @@ jQuery(document).ready(function($) {
             targets: '.no-bookmarks, .search form',
             opacity: 1
         });
+        anime({
+            targets: '.bookmark-container .anime',
+            delay: anime.stagger(50),
+            opacity: 1,
+        });
+        anime({
+            targets: '#results .anime',
+            delay: anime.stagger(50),
+            opacity: 1,
+        });
         instance.destroy();
         instance = $('.bookmark-container').overlayScrollbars({ }).overlayScrollbars();
     })
 
     $('#menu').on('hidden.bs.modal', function (e) {
-        anime.set('.nav li',{
+        anime.remove('.nav li');
+        anime.remove('.no-bookmarks, .search form');
+        anime.remove('.bookmark-container .anime');
+        anime.remove('#results .anime');
+        anime({
+            targets: '.nav li',
             translateY: 0,
+            opacity: 0,
+        });
+        anime({
+            targets: '.no-bookmarks, .search form',
             opacity: 0
         });
-        anime.set('.no-bookmarks, .search form',{
+        anime({
+            targets: '#results .anime',
+            opacity: 0
+        });
+        anime({
+            targets: '.bookmark-container .anime',
             opacity: 0
         });
     })
@@ -201,9 +232,58 @@ jQuery(document).ready(function($) {
         key: config['content-api-key'],
         results: '#results',
         input: '#search-field',
+        api: {
+            parameters: { 
+                fields: ['title', 'slug', 'published_at', 'feature_image', 'primary_tag', 'id'],
+                include: 'tags',
+            },
+        },
         on: {
             afterDisplay: function(results){
+
+                $('#results').empty();
                 
+                var tags = [];
+                $.each(results, function(index, val) {
+                    if (val.obj.primary_tag) {
+                        if ($.inArray(val.obj.primary_tag.name, tags) === -1) {
+                            tags.push(val.obj.primary_tag.name);
+                        };
+                    }else{
+                        if ($.inArray('Other', tags) === -1) {
+                            tags.push('Other');
+                        };
+                    };
+                });
+
+                tags.sort();
+
+                $.each(tags, function(index, val) {
+                    var tag = val;
+                    if (val == 'Other') {
+                        tag = $('#results').attr('data-other');
+                    };
+                    $('#results').append('<h5 class="anime">'+ tag +'</h5><ul data-tag="'+ val +'" class="list-box"></ul>');
+                });
+
+                $.each(results, function(index, val) {
+                    var dateSplit = val.obj.published_at.split('T');
+                    dateSplit = dateSplit[0].split('-');
+                    var month = monthNames[dateSplit[1]-1];
+                    var date = moment(dateSplit[2]+'-'+month+'-'+dateSplit[1], "DD-MM-YYYY").format('DD MMM YYYY');
+                    if (val.obj.primary_tag) {
+                        $('#results ul[data-tag="'+ val.obj.primary_tag.name +'"]').append('<li class="anime"><a href="#" class="read-later" data-id="'+ val.obj.id +'"></a><a href="'+ val.obj.slug +'">'+ val.obj.title +'</a><time>'+ date +'</time></li>');
+                    }else{
+                        $('#results ul[data-tag="Other"]').append('<li class="anime"><a href="#" class="read-later" data-id="'+ val.obj.id +'"></a><a href="'+ val.obj.slug +'">'+ val.obj.title +'</a><time>'+ date +'</time></li>');
+                    };
+                });
+
+                anime({
+                    targets: '#results .anime',
+                    delay: anime.stagger(50),
+                    opacity: 1,
+                });
+
             }
         }
     })
@@ -322,29 +402,39 @@ jQuery(document).ready(function($) {
 
                     $('.bookmark-container').empty();
 
-                    $.each(results, function(index, result) {
-                        var dateSplit = result.published_at.split('T');
+                    var tags = [];
+                    $.each(results, function(index, val) {
+                        if (val.primary_tag) {
+                            if ($.inArray(val.primary_tag.name, tags) === -1) {
+                                tags.push(val.primary_tag.name);
+                            };
+                        }else{
+                            if ($.inArray('Other', tags) === -1) {
+                                tags.push('Other');
+                            };
+                        };
+                    });
+    
+                    tags.sort();
+
+                    $.each(tags, function(index, val) {
+                        var tag = val;
+                        if (val == 'Other') {
+                            tag = $('.bookmark-container').attr('data-other');
+                        };
+                        $('.bookmark-container').append('<h5 class="anime">'+ tag +'</h5><ul data-tag="'+ val +'" class="list-box"></ul>');
+                    });
+    
+                    $.each(results, function(index, val) {
+                        var dateSplit = val.published_at.split('T');
                         dateSplit = dateSplit[0].split('-');
-                        var month = monthNames.indexOf(dateSplit[1])+1;
-                        var date = moment(dateSplit[2]+'-'+dateSplit[1]+'-'+dateSplit[0], "DD-MM-YYYY").format('DD MMM YYYY');
-                        var tag = '';
-                        if(result.primary_tag){
-                            tag = '<div class="tags"><a href="/tag/'+ result.primary_tag.slug +'">'+ result.primary_tag.name +'</a></div>';
-                        }
-                        var str = '\
-                        <div class="item"> \
-                            <article> \
-                                <div class="post-inner-content"> \
-                                    ' + tag + '  \
-                                    <p> \
-                                        <a href="/' + result.slug + '/" class="post-title" title="' + result.title + '"><strong>' + result.title + '</strong></a> \
-                                    </p> \
-                                    <time datetime="' + result.published_at + '">' + date + '</time> \
-                                </div> \
-                                <a href="#" class="read-later active" data-id="' + result.id + '"><i class="far fa-bookmark"></i></a> \
-                            </article> \
-                        </div>';
-                        $('.bookmark-container').append(str);
+                        var month = monthNames[dateSplit[1]-1];
+                        var date = moment(dateSplit[2]+'-'+month+'-'+dateSplit[1], "DD-MM-YYYY").format('DD MMM YYYY');
+                        if (val.primary_tag) {
+                            $('.bookmark-container ul[data-tag="'+ val.primary_tag.name +'"]').append('<li class="anime"><a href="#" class="read-later active" data-id="'+ val.id +'"><i class="far fa-bookmark"></i></a><a href="'+ val.slug +'">'+ val.title +'</a><time>'+ date +'</time></li>');
+                        }else{
+                            $('.bookmark-container ul[data-tag="Other"]').append('<li class="anime"><a href="#" class="read-later active" data-id="'+ val.id +'"><i class="far fa-bookmark"></i></a><a href="'+ val.slug +'">'+ val.title +'</a><time>'+ date +'</time></li>');
+                        };
                     });
 
                     $('.bookmark-container').find('.read-later').each(function(index, el) {
@@ -359,7 +449,7 @@ jQuery(document).ready(function($) {
                             $('.read-later[data-id="'+ id +'"]').each(function(index, el) {
                                 $(this).toggleClass('active');
                             });
-                            Cookies.set('okiku-read-later', readLaterPosts, { expires: 365 });
+                            Cookies.set('farfara-read-later', readLaterPosts, { expires: 365 });
                             bookmarks(readLaterPosts);
                         });
                     });
