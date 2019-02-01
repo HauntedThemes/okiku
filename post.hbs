@@ -49,13 +49,12 @@
                 <div class="row">
                     <div class="col-md-8 ml-auto mr-auto">
                         <div class="post-meta">
-                            <span class="tags">{{tags separator=' '}}</span>
+                            <div class="tags">{{tags separator=', '}}</div>
                         </div>
                         <div class="authors">
                             {{#if authors}}
                                 {{#foreach authors}}
-                                <section class="intro">
-                                    <div class="intro-meta">
+                                    <div class="author">
                                         {{#if profile_image}}
                                         <figure class="intro-image">
                                             <a class="img" href="{{url}}" title="{{name}}"><img src="{{img_url profile_image size="xs"}}" alt="{{name}}"></a>
@@ -65,12 +64,9 @@
                                             <h3><strong><a href="{{url}}">{{name}}</a></strong></h3>
                                             {{#if bio}}
                                                 <p>{{bio}}</p>
-                                            {{else}}
-                                            <p>{{t "Please set your author's bio."}}</p>
                                             {{/if}}
                                         </div>
                                     </div>
-                                </section>
                                 {{/foreach}}
                             {{/if}}
                         </div>

@@ -1,7 +1,14 @@
 <header>
     <div class="midnightHeader default">
         <a href="{{@site.url}}" class="site-logo" title="{{@site.title}}">
-            {{#if @site.logo}} <img src="{{@site.logo}}" alt="{{@site.title}}" /> {{else}}<span>{{@site.title}}</span>{{/if}} 
+            {{#if @site.logo}} 
+                <img src="{{@site.logo}}" alt="{{@site.title}}" /> 
+            {{else}}
+                <span>{{@site.title}}</span>
+            {{/if}} 
+            {{#is "tag"}}
+                <b>{{tag.name}}</b>
+            {{/is}}
         </a>
         <a href="#" class="menu-trigger" data-no-swup data-toggle="modal" data-target="#menu">
             <span class="counter"></span>
@@ -10,7 +17,11 @@
     </div>
     <div class="midnightHeader black">
         <a href="{{@site.url}}" class="site-logo" title="{{@site.title}}">
-            {{#if @site.logo}} <img src="{{asset "img/logo-black.svg"}}" alt="{{@site.title}}" /> {{else}}<span>{{@site.title}}</span>{{/if}} 
+            {{#if @site.logo}} 
+                <img src="{{asset "img/logo-black.svg"}}" alt="{{@site.title}}" /> 
+            {{else}}
+                <span>{{@site.title}}</span>
+            {{/if}} 
         </a>
         <a href="#" class="menu-trigger" data-no-swup data-toggle="modal" data-target="#menu">
             <span class="counter"></span>

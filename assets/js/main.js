@@ -27,7 +27,9 @@ jQuery(document).ready(function($) {
     var pathname = window.location.pathname;
     var $result = $('.post');
 
-    var instance = $('.bookmark-container').overlayScrollbars({ }).overlayScrollbars();
+    var instanceBookmark = $('.bookmark-container').overlayScrollbars({ }).overlayScrollbars();
+    var instanceSearch = $('#results').overlayScrollbars({ }).overlayScrollbars();
+    var instanceMenu = $('.navigation .inner').overlayScrollbars({ }).overlayScrollbars();
 
     setGalleryRation();
 
@@ -199,8 +201,8 @@ jQuery(document).ready(function($) {
             delay: anime.stagger(50),
             opacity: 1,
         });
-        instance.destroy();
-        instance = $('.bookmark-container').overlayScrollbars({ }).overlayScrollbars();
+        instanceBookmark.destroy();
+        instanceBookmark = $('.bookmark-container').overlayScrollbars({ }).overlayScrollbars();
     })
 
     $('#menu').on('hidden.bs.modal', function (e) {
@@ -284,15 +286,12 @@ jQuery(document).ready(function($) {
                     opacity: 1,
                 });
 
+                instanceSearch.destroy();
+                instanceSearch = $('#results').overlayScrollbars({ }).overlayScrollbars();
+
             }
         }
     })
-
-    $('#search-field').on('keyup', function () {
-        if(!$(this).parent().hasClass('active')){
-            $(this).parent().addClass('active')
-        }
-    });
 
     function loadNextPosts(swiperMain, currentPage, maxPages, pathname){
         swiperMain.on('slideChange', function(event) {
@@ -449,7 +448,7 @@ jQuery(document).ready(function($) {
                             $('.read-later[data-id="'+ id +'"]').each(function(index, el) {
                                 $(this).toggleClass('active');
                             });
-                            Cookies.set('farfara-read-later', readLaterPosts, { expires: 365 });
+                            Cookies.set('okiku-read-later', readLaterPosts, { expires: 365 });
                             bookmarks(readLaterPosts);
                         });
                     });
@@ -486,14 +485,6 @@ jQuery(document).ready(function($) {
         }
         return arr;
     }
-
-    // $('#search-field').on('focusin', function () {
-    //     $('.search form').addClass('active');
-    // });
-
-    // $('#search-field').on('focusout', function () {
-    //     $('.search form').removeClass('active');
-    // });
 
     // Custom Cursor
 
