@@ -27,9 +27,14 @@ jQuery(document).ready(function($) {
     var pathname = window.location.pathname;
     var $result = $('.post');
 
-    var instanceBookmark = $('.bookmark-container').overlayScrollbars({ }).overlayScrollbars();
-    var instanceSearch = $('#results').overlayScrollbars({ }).overlayScrollbars();
-    var instanceMenu = $('.navigation .inner').overlayScrollbars({ }).overlayScrollbars();
+    var instanceBookmark = $('.bookmark-container').overlayScrollbars({
+        resize: "vertical",
+        sizeAutoCapable: false
+    }).overlayScrollbars();
+    var instanceSearch = $('#results').overlayScrollbars({
+        resize: "vertical",
+        sizeAutoCapable: false
+    }).overlayScrollbars();
 
     setGalleryRation();
 
@@ -48,6 +53,15 @@ jQuery(document).ready(function($) {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
+        breakpoints: {
+            991: {
+                slidesPerView: 2,
+            },
+            575: {
+                spaceBetween: 0,
+                slidesPerView: 1,
+            },
+        }
     };
 
     var swiperMain = new Swiper('.swiper-main', swiperMainData);
@@ -61,79 +75,42 @@ jQuery(document).ready(function($) {
 
     $('.zoom').fluidbox();
 
-    // var headerHeight = $('header').innerHeight();
-
-    // $.jScrollability([
-    //     {
-    //         'selector': '.simulate-bg',
-    //         'start': h,
-    //         'end': h*2-headerHeight-50,
-    //         'fn': function($el,pcnt) {
-    //             $el.css({
-    //               'opacity': (pcnt)
-    //             });
-    //         }
-    //     }
-    // ]);
-
-    // $(window).on('resize', function (e) {
-    //     w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    //     h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-
-    //     $.jScrollability([
-    //         {
-    //             'selector': '.simulate-bg',
-    //             'start': h,
-    //             'end': h*2,
-    //             'fn': function($el,pcnt) {
-    //                 $el.css({
-    //                   'opacity': ((pcnt))
-    //                 });
-    //             }
-    //         }
-    //     ]);
-
-    // });
-
-    // $(window).on('scroll', function (e) {
-    //     var scrollTop = $(window).scrollTop();
-    //     if((scrollTop + headerHeight + 100) > h){
-    //         $('body').addClass('active-header');
-    //     }else{
-    //         $('body').removeClass('active-header');
-    //     }
-    // });
-
     $(window).on('scroll', function(event) {
-
-        w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-        h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-
         $('.zoom').fluidbox('close');
         if ($('.post-template').length) {
             progressBar();
         };
     });
 
-    $('.swiper-main .swiper-slide').each(function(index, el) {
-        $(this).on('mouseenter', function (e) {
-            var index = $(this).index()+1;
-            anime({
-                targets: '.swiper-main .swiper-slide:nth-child('+ index +') .share li',
-                translateY: -60,
-                delay: anime.stagger(50),
-                opacity: 1,
+    var instanceMenu;
+    instanceMenu = $('.navigation .inner').overlayScrollbars({
+        resize: "vertical",
+        sizeAutoCapable: false
+    }).overlayScrollbars();
+
+    animateSocialIconsOnLoop($('.swiper-main .swiper-slide'));
+
+    function animateSocialIconsOnLoop(element){
+        element.each(function(index, el) {
+            $(this).on('mouseenter', function (e) {
+                var index = $(this).index()+1;
+                anime({
+                    targets: '.swiper-main .swiper-slide:nth-child('+ index +') .share li',
+                    translateY: -60,
+                    delay: anime.stagger(50),
+                    opacity: 1,
+                });
+            });
+            $(this).on('mouseleave', function (e) {
+                var index = $(this).index()+1;
+                anime.remove('.swiper-main .swiper-slide:nth-child('+ index +') .share li');
+                anime({
+                    targets: '.swiper-main .swiper-slide:nth-child('+ index +') .share li',
+                    translateY: 60,
+                });
             });
         });
-        $(this).on('mouseleave', function (e) {
-            var index = $(this).index()+1;
-            anime.remove('.swiper-main .swiper-slide:nth-child('+ index +') .share li');
-            anime({
-                targets: '.swiper-main .swiper-slide:nth-child('+ index +') .share li',
-                translateY: 60,
-            });
-        });
-    });
+    }
 
     // Progress bar for inner post
     function progressBar(){
@@ -201,8 +178,12 @@ jQuery(document).ready(function($) {
             delay: anime.stagger(50),
             opacity: 1,
         });
+
         instanceBookmark.destroy();
-        instanceBookmark = $('.bookmark-container').overlayScrollbars({ }).overlayScrollbars();
+        instanceBookmark = $('.bookmark-container').overlayScrollbars({
+            resize: "vertical",
+            sizeAutoCapable: false
+        }).overlayScrollbars();
     })
 
     $('#menu').on('hidden.bs.modal', function (e) {
@@ -313,8 +294,13 @@ jQuery(document).ready(function($) {
                 var nextPage = pathname + 'page/' + currentPage + '/';
     
                 $.get(nextPage, function (content) {
-                    var post = $(content).find('.swiper-main .swiper-slide');
+                    var post = $(content).find('.swiper-main .swiper-slide').addClass('loading');
                     swiperMain.appendSlide(post);
+                    animateSocialIconsOnLoop($('.swiper-main .swiper-slide.loading'));
+                    readLaterPosts = readLater($('.swiper-main .swiper-slide.loading'), readLaterPosts);
+                    $('.swiper-main .swiper-slide.loading').removeClass('loading');
+
+
                 });
             }
         });
@@ -458,7 +444,11 @@ jQuery(document).ready(function($) {
                     }else{
                         $('header .counter').addClass('hidden');
                         $('.bookmark-container').append('<p class="no-bookmarks"></p>');
-                        $('.no-bookmarks').html(noBookmarksMessage)
+                        $('.no-bookmarks').html(noBookmarksMessage);
+                        anime({
+                            targets: '.no-bookmarks, .search form',
+                            opacity: 1
+                        });
                     };
 
                 })
@@ -469,7 +459,11 @@ jQuery(document).ready(function($) {
         } else {
             $('header .counter').addClass('hidden');
             $('.bookmark-container').append('<p class="no-bookmarks"></p>');
-            $('.no-bookmarks').html(noBookmarksMessage)
+            $('.no-bookmarks').html(noBookmarksMessage);
+            anime({
+                targets: '.no-bookmarks, .search form',
+                opacity: 1
+            });
         };
     }
 
@@ -485,82 +479,5 @@ jQuery(document).ready(function($) {
         }
         return arr;
     }
-
-    // Custom Cursor
-
-    // const shuffleArray = arr => arr.sort(() => Math.random() - 0.5);
-    // const lineEq = (y2, y1, x2, x1, currentVal) => {
-    //     let m = (y2 - y1) / (x2 - x1); 
-    //     let b = y1 - m * x1;
-    //     return m * currentVal + b;
-    // };
-    // const lerp = (a, b, n) => (1 - n) * a + n * b;
-    // const body = document.body;
-    // const bodyColor = getComputedStyle(body).getPropertyValue('--color-bg').trim() || 'white';
-    // const getMousePos = (e) => {
-    //     let posx = 0;
-    //     let posy = 0;
-    //     if (!e) e = window.event;
-    //     if (e.pageX || e.pageY) {
-    //         posx = e.pageX;
-    //         posy = e.pageY;
-    //     }
-    //     else if (e.clientX || e.clientY) 	{
-    //         posx = e.clientX + body.scrollLeft + document.documentElement.scrollLeft;
-    //         posy = e.clientY + body.scrollTop + document.documentElement.scrollTop;
-    //     }
-    //     return { x : posx, y : posy }
-    // }
-
-    // class CursorFx {
-    //     constructor(el) {
-    //         this.DOM = {el: el};
-    //         this.DOM.dot = this.DOM.el.querySelector('.cursor__inner--dot');
-    //         this.DOM.circle = this.DOM.el.querySelector('.cursor__inner--circle');
-    //         this.bounds = {dot: this.DOM.dot.getBoundingClientRect(), circle: this.DOM.circle.getBoundingClientRect()};
-    //         this.scale = 1;
-    //         this.opacity = 1;
-    //         this.mousePos = {x:0, y:0};
-    //         this.lastMousePos = {dot: {x:0, y:0}, circle: {x:0, y:0}};
-    //         this.lastScale = 1;
-    //         this.lastOpacity = 1;
-            
-    //         this.initEvents();
-    //         requestAnimationFrame(() => this.render());
-    //     }
-    //     initEvents() {
-    //         window.addEventListener('mousemove', ev => this.mousePos = getMousePos(ev));
-    //     }
-    //     render() {
-    //         this.lastMousePos.dot.x = lerp(this.lastMousePos.dot.x, this.mousePos.x - this.bounds.dot.width/2, 1);
-    //         this.lastMousePos.dot.y = lerp(this.lastMousePos.dot.y, this.mousePos.y - this.bounds.dot.height/2, 1);
-    //         this.lastMousePos.circle.x = lerp(this.lastMousePos.circle.x, this.mousePos.x - this.bounds.circle.width/2, 0.15);
-    //         this.lastMousePos.circle.y = lerp(this.lastMousePos.circle.y, this.mousePos.y - this.bounds.circle.height/2, 0.15);
-    //         this.lastScale = lerp(this.lastScale, this.scale, 0.15);
-    //         this.lastOpacity = lerp(this.lastOpacity, this.opacity, 0.1);
-    //         this.DOM.dot.style.transform = `translateX(${(this.lastMousePos.dot.x)}px) translateY(${this.lastMousePos.dot.y}px)`;
-    //         this.DOM.circle.style.transform = `translateX(${(this.lastMousePos.circle.x)}px) translateY(${this.lastMousePos.circle.y}px) scale(${this.lastScale})`;
-    //         this.DOM.circle.style.opacity = this.lastOpacity
-    //         requestAnimationFrame(() => this.render());
-    //     }
-    //     enter() {
-    //         cursor.scale = 2.7;
-    //     }
-    //     leave() {
-    //         cursor.scale = 1;
-    //     }
-    //     click() {
-    //         this.lastScale = 1;
-    //         this.lastOpacity = 0;
-    //     }
-    // }
-
-    // var cursor = new CursorFx(document.querySelector('.cursor'));
-
-    // [...document.querySelectorAll('[data-hover]')].forEach((link) => {
-    //     link.addEventListener('mouseenter', () => cursor.enter() );
-    //     link.addEventListener('mouseleave', () => cursor.leave() );
-    //     link.addEventListener('click', () => cursor.click() );
-    // });
 
 });

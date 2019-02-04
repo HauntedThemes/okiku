@@ -10,7 +10,7 @@
                 <b>{{tag.name}}</b>
             {{/is}}
         </a>
-        <a href="#" class="menu-trigger" data-no-swup data-toggle="modal" data-target="#menu">
+        <a href="#" class="menu-trigger" data-toggle="modal" data-target="#menu">
             <span class="counter"></span>
             <img src="{{asset "img/menu.svg"}}">
         </a>
@@ -23,7 +23,7 @@
                 <span>{{@site.title}}</span>
             {{/if}} 
         </a>
-        <a href="#" class="menu-trigger" data-no-swup data-toggle="modal" data-target="#menu">
+        <a href="#" class="menu-trigger" data-toggle="modal" data-target="#menu">
             <span class="counter"></span>
             <img src="{{asset "img/menu-black.svg"}}">
         </a>
@@ -39,7 +39,7 @@
                     <h4>{{t "Bookmarks"}}</h4>
                     <div class="inner">
                         <div class="bookmark-container loop">
-                            <p class="no-bookmarks">{{{t "You haven't yet saved any bookmarks. To bookmark a post, just click <i class='far fa-bookmark'></i>."}}}</p>
+                            <p class="no-bookmarks"><b>{{{t "You haven't yet saved any bookmarks. To bookmark a post, just click <i class='far fa-bookmark'></i>."}}}</b></p>
                         </div>
                     </div>
                 </div>
@@ -58,6 +58,7 @@
                         <div id="results" class="loop" data-no-results-description='{{t "Your search did not match any articles. Try something else."}}' data-no-results='{{t "No results were found"}}' data-other='{{t "Other"}}' data-bookmark-article='{{t "Bookmark article"}}' data-remove-bookmark='{{t "Remove bookmark"}}'></div>
                     </div>
                 </div>
+                <a href="#" data-dismiss="modal" class="close"><img src="{{asset "img/close.svg"}}"></a>
             </div>
         </div>
     </div>
