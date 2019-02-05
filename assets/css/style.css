@@ -61,7 +61,8 @@ b, strong {
     font-weight: bold;
 }
 
-blockquote{
+blockquote,
+blockquote p{
     font-weight: bold;
     width: calc(100% + 200px);
     text-align: center;
@@ -155,6 +156,7 @@ header .site-logo{
     display: flex;
     align-items: center;
     padding: 30px;
+    line-height: 1;
 }
 
 header .menu-trigger{
@@ -248,7 +250,7 @@ header .midnightHeader.black .counter{
 
 #menu .nav ul{
     list-style-type: none;
-    margin: 0;
+    margin: -30px 0 0 0;
     padding: 0;
     text-align: center;
     display: flex;
@@ -262,13 +264,14 @@ header .midnightHeader.black .counter{
 }
 
 #menu .nav ul li{
-    line-height: 38px;
+    line-height: 1.2;
     font-size: 36px;
     font-weight: bold;
     counter-increment: li;
     position: relative;
     display: inline-flex;
     opacity: 0;
+    margin: 20px 0;
 }
 
 #menu .nav ul li:after{
@@ -331,6 +334,7 @@ header .midnightHeader.black .counter{
     align-items: center;
     justify-content: center;
     opacity: 0;
+    padding-bottom: 48px;
 }
 
 #menu .navigation .inner{
@@ -560,18 +564,18 @@ header .midnightHeader.black .counter{
 
 .swiper-button-next, .swiper-button-prev{
     background-image: url('../img/arrow.svg');
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     top: auto;
-    bottom: 40px;
+    bottom: 20px;
     margin-top: 0;
-    background-size: contain;
-    left: 40px;
+    background-size: 20px;
+    left: 20px;
 }
 
 .swiper-button-next{
     left: auto;
-    right: 40px;
+    right: 20px;
     transform: rotate(180deg);
 }
 
@@ -622,6 +626,7 @@ header .midnightHeader.black .counter{
     font-size: 60px;
     max-width: 1200px;
     margin: 10px auto;
+    padding: 0 15px;
 }
 
 .post-content{
@@ -757,6 +762,16 @@ header .midnightHeader.black .counter{
 .editor-content a{
     color: #1B1B1B;
     text-decoration: underline;
+}
+
+.editor-content ul,
+.editor-content ol{
+    padding-left: 19px;
+    margin: 30px 0;
+}
+
+.editor-content li{
+    margin: 0;
 }
 
 .post-nav{
@@ -1008,11 +1023,73 @@ footer h3{
     .loop .swiper-slide .inner {
         max-width: 100%;
     }
+    #menu .nav ul li{
+        font-size: 24px;
+        margin: 10px 0;
+    }
+    input[type="text"], input[type="email"], textarea{
+        font-size: 16px;
+        padding: 10px 20px 9px 20px;
+    }
 }
 
 @media (max-width: 991px) {
     .loop .swiper-slide{
         width: calc(50% - 4px);
+    }
+    #menu .modal-body{
+        flex-direction: column;
+    }
+    .menu-column{
+        width: 100%;
+    }
+    #menu{
+        background: #0f0f0f;
+        overflow: auto;
+    }
+    #menu h4{
+        position: relative;
+    }
+    #menu .bookmarks {
+        padding-top: 0;
+    }
+    #menu .bookmarks .no-bookmarks{
+        padding: 50px 0;
+    }
+    .menu-column{
+        order: 1;
+    }
+    .navigation{
+        order: 0;
+    }
+    #menu .nav ul{
+        margin-bottom: 30px;
+    }
+    .search form{
+        margin-top: 0;
+    }
+    #content .swiper-main .share{
+        transform: translate3d(-50%, 20px, 0);
+    }
+    #content .swiper-main .share a{
+        width: 35px;
+    }
+    header .menu-trigger{
+        padding: 15px;
+    }
+    header .site-logo{
+        padding: 15px;
+    }
+    header .counter{
+        right: 40px;
+    }
+    .swiper-button-next, .swiper-button-prev{
+        bottom: 5px;
+        left: 5px;
+    }
+    .swiper-button-next {
+        left: auto;
+        right: 5px;
     }
 }
 

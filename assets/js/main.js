@@ -27,14 +27,22 @@ jQuery(document).ready(function($) {
     var pathname = window.location.pathname;
     var $result = $('.post');
 
-    var instanceBookmark = $('.bookmark-container').overlayScrollbars({
-        resize: "vertical",
-        sizeAutoCapable: false
-    }).overlayScrollbars();
-    var instanceSearch = $('#results').overlayScrollbars({
-        resize: "vertical",
-        sizeAutoCapable: false
-    }).overlayScrollbars();
+    var instanceMenu, instanceSearch, instanceBookmark;
+
+    if(w >= 992){
+        instanceBookmark = $('.bookmark-container').overlayScrollbars({
+            resize: "vertical",
+            sizeAutoCapable: false
+        }).overlayScrollbars();
+        instanceSearch = $('#results').overlayScrollbars({
+            resize: "vertical",
+            sizeAutoCapable: false
+        }).overlayScrollbars();
+        instanceMenu = $('.navigation .inner').overlayScrollbars({
+            resize: "vertical",
+            sizeAutoCapable: false
+        }).overlayScrollbars();
+    }
 
     setGalleryRation();
 
@@ -82,13 +90,42 @@ jQuery(document).ready(function($) {
         };
     });
 
-    var instanceMenu;
-    instanceMenu = $('.navigation .inner').overlayScrollbars({
-        resize: "vertical",
-        sizeAutoCapable: false
-    }).overlayScrollbars();
+    $(window).on('resize', function(event) {
+        w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
-    animateSocialIconsOnLoop($('.swiper-main .swiper-slide'));
+        var check = 0;
+
+        if($('.navigation .inner').hasClass('os-host')){
+            instanceMenu.destroy();
+        }
+        if($('.bookmark-container').hasClass('os-host')){
+            instanceBookmark.destroy();
+        }
+        if($('#results').hasClass('os-host')){
+            instanceSearch.destroy();
+        }
+
+        if(w >= 992){
+            instanceMenu = $('.navigation .inner').overlayScrollbars({
+                resize: "vertical",
+                sizeAutoCapable: false
+            }).overlayScrollbars();
+            instanceSearch = $('#results').overlayScrollbars({
+                resize: "vertical",
+                sizeAutoCapable: false
+            }).overlayScrollbars();
+            instanceBookmark = $('.bookmark-container').overlayScrollbars({
+                resize: "vertical",
+                sizeAutoCapable: false
+            }).overlayScrollbars();
+        }
+
+    });
+
+    if(w >= 992){
+        animateSocialIconsOnLoop($('.swiper-main .swiper-slide'));
+    }
 
     function animateSocialIconsOnLoop(element){
         element.each(function(index, el) {
@@ -178,12 +215,13 @@ jQuery(document).ready(function($) {
             delay: anime.stagger(50),
             opacity: 1,
         });
-
-        instanceBookmark.destroy();
-        instanceBookmark = $('.bookmark-container').overlayScrollbars({
-            resize: "vertical",
-            sizeAutoCapable: false
-        }).overlayScrollbars();
+        if($('.bookmark-container').hasClass('os-host')){
+            instanceBookmark.destroy();
+            instanceBookmark = $('.bookmark-container').overlayScrollbars({
+                resize: "vertical",
+                sizeAutoCapable: false
+            }).overlayScrollbars();
+        }
     })
 
     $('#menu').on('hidden.bs.modal', function (e) {
@@ -267,8 +305,10 @@ jQuery(document).ready(function($) {
                     opacity: 1,
                 });
 
-                instanceSearch.destroy();
-                instanceSearch = $('#results').overlayScrollbars({ }).overlayScrollbars();
+                if($('#results').hasClass('os-host')){
+                    instanceSearch.destroy();
+                    instanceSearch = $('#results').overlayScrollbars({ }).overlayScrollbars();
+                }
 
             }
         }
@@ -296,11 +336,11 @@ jQuery(document).ready(function($) {
                 $.get(nextPage, function (content) {
                     var post = $(content).find('.swiper-main .swiper-slide').addClass('loading');
                     swiperMain.appendSlide(post);
-                    animateSocialIconsOnLoop($('.swiper-main .swiper-slide.loading'));
+                    if(w >= 992){
+                        animateSocialIconsOnLoop($('.swiper-main .swiper-slide.loading'));
+                    }
                     readLaterPosts = readLater($('.swiper-main .swiper-slide.loading'), readLaterPosts);
                     $('.swiper-main .swiper-slide.loading').removeClass('loading');
-
-
                 });
             }
         });
