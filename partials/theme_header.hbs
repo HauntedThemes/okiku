@@ -9,6 +9,9 @@
             {{#is "tag"}}
                 <b>{{tag.name}}</b>
             {{/is}}
+            {{#is "author"}}
+                <b>{{author.name}}</b>
+            {{/is}}
         </a>
         <a href="#" class="menu-trigger" data-toggle="modal" data-target="#menu">
             <span class="counter"></span>
@@ -38,7 +41,7 @@
                 <div class="menu-column bookmarks">
                     <h4>{{t "Bookmarks"}}</h4>
                     <div class="inner">
-                        <div class="bookmark-container loop">
+                        <div class="bookmark-container loop" data-other="{{t "Other"}}">
                             <p class="no-bookmarks"><b>{{{t "You haven't yet saved any bookmarks. To bookmark a post, just click <i class='far fa-bookmark'></i>."}}}</b></p>
                         </div>
                     </div>

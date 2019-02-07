@@ -37,17 +37,24 @@
         <div class="post-content" id="post-content" data-midnight="black">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 ml-auto mr-auto">
+                    <div class="col-lg-8 col-md-10 ml-auto mr-auto">
                         <div class="editor-content">{{content}}</div>
                     </div>
                 </div>
             </div>
-            <div class="progress"></div>
+            <div class="progress"></div>         
         </div>
+        <ul class="share">
+            <li><a class="read-later btn" href="#" data-toggle="tooltip" data-placement="top" data-id={{comment_id}} title="{{t "Save to bookmarks"}}"><i class="far fa-bookmark"></i></a></li>
+            <li><a class="facebook btn" href="https://www.facebook.com/sharer/sharer.php?u={{url absolute="true"}}" data-toggle="tooltip" data-placement="top" onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;" title="{{t "Share on Facebook"}}"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+            <li><a class="twitter btn" href="https://twitter.com/share?text={{encode title}}&amp;url={{url absolute="true"}}" data-toggle="tooltip" data-placement="top" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;" title="{{t "Share on Twitter"}}"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+            <li><a class="reddit btn" href="https://www.reddit.com/submit?url={{url absolute="true"}}%2F&title={{encode title}}" data-toggle="tooltip" data-placement="top" class="reddit" title="{{t "Share on Reddit"}}"><i class="fab fa-reddit-alien" aria-hidden="true"></i></a></li>
+            <li><a class="email btn" href="mailto:?subject={{encode title}}&amp;body={{url absolute="true"}}" data-toggle="tooltip" data-placement="top" class="email" title="{{t "Share by Email"}}"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+        </ul>   
         <div class="post-footer" data-midnight="black">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 ml-auto mr-auto">
+                    <div class="col-lg-8 col-md-10 ml-auto mr-auto">
                         <div class="post-meta">
                             <div class="tags">{{tags separator=', '}}</div>
                         </div>
@@ -75,14 +82,6 @@
                 </div>
             </div>
         </div>
-        <ul class="share">
-            <li><a class="read-later" href="#" data-toggle="tooltip" data-placement="top" title="{{t "Save to bookmarks"}}"><i class="far fa-bookmark"></i></a></li>
-            <li><a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u={{url absolute="true"}}" data-toggle="tooltip" data-placement="top" onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;" title="{{t "Share on Facebook"}}"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-            <li><a class="twitter" href="https://twitter.com/share?text={{encode title}}&amp;url={{url absolute="true"}}" data-toggle="tooltip" data-placement="top" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;" title="{{t "Share on Twitter"}}"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-            <li><a href="https://plus.google.com/share?url={{url absolute="true"}}" class="google-plus" data-toggle="tooltip" data-placement="top" title="{{t "Share on Google+"}}"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a></li>
-            <li><a href="https://www.reddit.com/submit?url={{url absolute="true"}}%2F&title={{encode title}}" data-toggle="tooltip" data-placement="top" class="reddit" title="{{t "Share on Reddit"}}"><i class="fab fa-reddit-alien" aria-hidden="true"></i></a></li>
-            <li><a href="mailto:?subject={{encode title}}&amp;body={{url absolute="true"}}" data-toggle="tooltip" data-placement="top" class="email" title="{{t "Share by Email"}}"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
-        </ul>
     </article>
 </main>
 

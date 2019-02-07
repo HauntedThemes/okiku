@@ -159,7 +159,7 @@ jQuery(document).ready(function($) {
             $('.progress').css({
                 width: percentage + '%'
             });
-            if(!$('#content .share').hasClass('begin')){
+            if(!$('#content .share').hasClass('begin') && w >= 992){
                 anime({
                     targets: '#content .share li',
                     translateX: 100,
@@ -173,7 +173,7 @@ jQuery(document).ready(function($) {
             $('.progress').css({
                 width: '0%'
             });
-            if($('#content .share').hasClass('begin')){
+            if($('#content .share').hasClass('begin') && w >= 992){
                 $('#content .share').removeClass('begin');
                 anime({
                     targets: '#content .share li',
@@ -181,7 +181,7 @@ jQuery(document).ready(function($) {
                 });
             }
         }else{
-            if($('#content .share').hasClass('begin')){
+            if($('#content .share').hasClass('begin') && w >= 992){
                 $('#content .share').removeClass('begin');
                 anime({
                     targets: '#content .share li',
@@ -374,7 +374,7 @@ jQuery(document).ready(function($) {
         readLaterPosts = JSON.parse(Cookies.get('okiku-read-later'));
     }
 
-    readLaterPosts = readLater($('#content .loop'), readLaterPosts);
+    readLaterPosts = readLater($('.share'), readLaterPosts);
 
     function readLater(content, readLaterPosts) {
 
@@ -481,6 +481,11 @@ jQuery(document).ready(function($) {
 
                     if (results) {
                         $('header .counter').removeClass('hidden').text(results.length);
+                        anime({
+                            targets: '.bookmark-container .anime',
+                            delay: anime.stagger(50),
+                            opacity: 1,
+                        });
                     }else{
                         $('header .counter').addClass('hidden');
                         $('.bookmark-container').append('<p class="no-bookmarks"></p>');
@@ -519,5 +524,30 @@ jQuery(document).ready(function($) {
         }
         return arr;
     }
+
+    // Initialize Disqus comments
+    if ($('#content').attr('data-id') && config['disqus-shortname'] != '') {
+
+        $('.comments .btn').on('click', function(event) {
+            event.preventDefault();
+            $(this).addClass('d-none');
+            $('.comments').append('<div id="disqus_thread"></div>');
+
+            var url = [location.protocol, '//', location.host, location.pathname].join('');
+            var disqus_config = function() {
+                this.page.url = url;
+                this.page.identifier = $('#content').attr('data-id');
+            };
+
+            (function() {
+                var d = document,
+                    s = d.createElement('script');
+                s.src = '//' + config['disqus-shortname'] + '.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        });
+
+    };
 
 });
