@@ -1,22 +1,11 @@
 {{!< default}}
-<div id="content" class="container">
-	<div class="error-title">
-	    <h1>Error 404</h1>
-	    <p>Page not found</p>
-	    {{#if stack}}
-	        <section class="error-stack">
-	            <h3>Stack Trace</h3>
-	            <p><strong>{{message}}</strong></p>
-	            <ul class="error-stack-list">
-	                {{#each stack as |item|}}
-	                    <li>
-	                        at
-	                        {{#if item.function}}<em class="error-stack-function">{{item.function}}</em>{{/if}}
-	                        <span class="error-stack-file">({{item.at}})</span>
-	                    </li>
-	                {{/each}}
-	            </ul>
-	        </section>
-	    {{/if}}
-	</div>
-</div>
+
+<main id="content" role="main" data-id="{{comment_id}}">
+    <article class="{{post_class}}">
+        <div class="post-header responsive-header-img-{{slug}} rellax" data-rellax-speed="7">
+            <div class="inner rellax" data-rellax-speed="1">
+                <h1 class="post-title">Error 404</h1> 
+            </div>
+        </div>
+    </article>
+</main>
