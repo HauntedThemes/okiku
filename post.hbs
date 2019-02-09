@@ -44,8 +44,8 @@
             </div>
             <div class="progress"></div>         
         </div>
-        <ul class="share">
-            <li><a class="read-later btn" href="#" data-toggle="tooltip" data-placement="top" data-id={{comment_id}} title="{{t "Save to bookmarks"}}"><i class="far fa-bookmark"></i></a></li>
+        <ul class="share" data-midnight="black">
+            <li><a class="read-later btn" href="#" data-toggle="tooltip" data-placement="top" data-id={{id}} title="{{t "Save to bookmarks"}}"><i class="far fa-bookmark"></i></a></li>
             <li><a class="facebook btn" href="https://www.facebook.com/sharer/sharer.php?u={{url absolute="true"}}" data-toggle="tooltip" data-placement="top" onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;" title="{{t "Share on Facebook"}}"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
             <li><a class="twitter btn" href="https://twitter.com/share?text={{encode title}}&amp;url={{url absolute="true"}}" data-toggle="tooltip" data-placement="top" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;" title="{{t "Share on Twitter"}}"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
             <li><a class="reddit btn" href="https://www.reddit.com/submit?url={{url absolute="true"}}%2F&title={{encode title}}" data-toggle="tooltip" data-placement="top" class="reddit" title="{{t "Share on Reddit"}}"><i class="fab fa-reddit-alien" aria-hidden="true"></i></a></li>
@@ -73,6 +73,11 @@
                                                 <p>{{bio}}</p>
                                             {{/if}}
                                         </div>
+                                        <ul class="links">
+                                            {{#if twitter}}<li><a href="{{twitter_url}}" class="twitter" target="_blank" data-toggle="tooltip" data-placement="top" title="{{twitter}}"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>{{/if}}
+                                            {{#if facebook}}<li><a href="{{facebook_url}}" class="facebook" target="_blank" data-toggle="tooltip" data-placement="top" title="{{facebook}}"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>{{/if}}
+                                            {{#if website}}<li><a href="{{website}}" class="website" target="_blank" data-toggle="tooltip" data-placement="top" title="{{website}}"><i class="fa fa-link" aria-hidden="true"></i></a></li>{{/if}}
+                                        </ul>
                                     </div>
                                 {{/foreach}}
                             {{/if}}

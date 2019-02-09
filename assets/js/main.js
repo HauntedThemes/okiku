@@ -6,8 +6,8 @@ jQuery(document).ready(function($) {
 
     var config = {
         'disqus-shortname': 'hauntedthemes-demo',
-        'content-api-host': 'http://localhost:2368',
-        'content-api-key': '8a13e02a8917186f02014db742',
+        'content-api-host': 'https://okiku.hauntedthemes.com',
+        'content-api-key': 'aa89dccc8b819576f92c891b03',
     };
 
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
@@ -44,8 +44,6 @@ jQuery(document).ready(function($) {
         }).overlayScrollbars();
     }
 
-    setGalleryRation();
-
     // remove hash params from pathname
     pathname = pathname.replace(/#(.*)$/g, '').replace('/\//g', '/');
 
@@ -75,13 +73,30 @@ jQuery(document).ready(function($) {
     var swiperMain = new Swiper('.swiper-main', swiperMainData);
     $('header').midnight();
 
-    // Make all images from gallery ready to be zoomed
-    $('.kg-gallery-image img').each(function(index, el) {
-        $( "<a href='" + $(this).attr('src') + "' class='zoom'></a>" ).insertAfter( $(this) );
-        $(this).appendTo($(this).next("a"));
+    if(w < 992){
+        $('.swiper-main .swiper-slide, .post-header').height(h);
+    }else{
+        enableRelax();
+    }
+
+    $(window).on('load', function(event) {
+
+        setGalleryRation();
+
+        // Make all images from gallery ready to be zoomed
+        $('.kg-gallery-image img').each(function(index, el) {
+            $( "<a href='" + $(this).attr('src') + "' class='zoom'></a>" ).insertAfter( $(this) );
+            $(this).appendTo($(this).next("a"));
+        });
+
+        $('.zoom').fluidbox();
+        
     });
 
-    $('.zoom').fluidbox();
+    $('.view-more').on('click', function (event) {
+        event.preventDefault();
+        $("html,body").animate({scrollTop: $('.post-header').height() + 1}, 600);
+    });
 
     $(window).on('scroll', function(event) {
         $('.zoom').fluidbox('close');
@@ -119,6 +134,9 @@ jQuery(document).ready(function($) {
                 resize: "vertical",
                 sizeAutoCapable: false
             }).overlayScrollbars();
+            $('.loop .swiper-slide, .post-header').height('100vh');
+        }else{
+            $('.loop .swiper-slide').height(h);
         }
 
     });
@@ -293,9 +311,9 @@ jQuery(document).ready(function($) {
                     var month = monthNames[dateSplit[1]-1];
                     var date = moment(dateSplit[2]+'-'+month+'-'+dateSplit[1], "DD-MM-YYYY").format('DD MMM YYYY');
                     if (val.obj.primary_tag) {
-                        $('#results ul[data-tag="'+ val.obj.primary_tag.name +'"]').append('<li class="anime"><a href="#" class="read-later" data-id="'+ val.obj.id +'"></a><a href="'+ val.obj.slug +'">'+ val.obj.title +'</a><time>'+ date +'</time></li>');
+                        $('#results ul[data-tag="'+ val.obj.primary_tag.name +'"]').append('<li class="anime"><a href="#" class="read-later" data-id="'+ val.obj.id +'"></a><a href="/'+ val.obj.slug +'/">'+ val.obj.title +'</a><time>'+ date +'</time></li>');
                     }else{
-                        $('#results ul[data-tag="Other"]').append('<li class="anime"><a href="#" class="read-later" data-id="'+ val.obj.id +'"></a><a href="'+ val.obj.slug +'">'+ val.obj.title +'</a><time>'+ date +'</time></li>');
+                        $('#results ul[data-tag="Other"]').append('<li class="anime"><a href="#" class="read-later" data-id="'+ val.obj.id +'"></a><a href="/'+ val.obj.slug +'/">'+ val.obj.title +'</a><time>'+ date +'</time></li>');
                     };
                 });
 
@@ -338,6 +356,8 @@ jQuery(document).ready(function($) {
                     swiperMain.appendSlide(post);
                     if(w >= 992){
                         animateSocialIconsOnLoop($('.swiper-main .swiper-slide.loading'));
+                    }else{
+                        $('.swiper-main .swiper-slide').height(h);
                     }
                     readLaterPosts = readLater($('.swiper-main .swiper-slide.loading'), readLaterPosts);
                     $('.swiper-main .swiper-slide.loading').removeClass('loading');
@@ -366,8 +386,6 @@ jQuery(document).ready(function($) {
             var rellax = new Rellax('.rellax');
         }
     }
-
-    enableRelax();
 
     // Check 'read later' posts 
     if (typeof Cookies.get('okiku-read-later') !== "undefined") {
@@ -456,9 +474,9 @@ jQuery(document).ready(function($) {
                         var month = monthNames[dateSplit[1]-1];
                         var date = moment(dateSplit[2]+'-'+month+'-'+dateSplit[1], "DD-MM-YYYY").format('DD MMM YYYY');
                         if (val.primary_tag) {
-                            $('.bookmark-container ul[data-tag="'+ val.primary_tag.name +'"]').append('<li class="anime"><a href="#" class="read-later active" data-id="'+ val.id +'"><i class="far fa-bookmark"></i></a><a href="'+ val.slug +'">'+ val.title +'</a><time>'+ date +'</time></li>');
+                            $('.bookmark-container ul[data-tag="'+ val.primary_tag.name +'"]').append('<li class="anime"><a href="#" class="read-later active" data-id="'+ val.id +'"><i class="far fa-bookmark"></i></a><a href="/'+ val.slug +'/">'+ val.title +'</a><time>'+ date +'</time></li>');
                         }else{
-                            $('.bookmark-container ul[data-tag="Other"]').append('<li class="anime"><a href="#" class="read-later active" data-id="'+ val.id +'"><i class="far fa-bookmark"></i></a><a href="'+ val.slug +'">'+ val.title +'</a><time>'+ date +'</time></li>');
+                            $('.bookmark-container ul[data-tag="Other"]').append('<li class="anime"><a href="#" class="read-later active" data-id="'+ val.id +'"><i class="far fa-bookmark"></i></a><a href="/'+ val.slug +'/">'+ val.title +'</a><time>'+ date +'</time></li>');
                         };
                     });
 
@@ -480,7 +498,7 @@ jQuery(document).ready(function($) {
                     });
 
                     if (results) {
-                        $('header .counter').removeClass('hidden').text(results.length);
+                        $('header .counter').removeClass('hidden').text(readLaterPosts.length);
                         anime({
                             targets: '.bookmark-container .anime',
                             delay: anime.stagger(50),

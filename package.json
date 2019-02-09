@@ -25,6 +25,19 @@
         "ghost-theme"
     ],
     "config": {
-        "posts_per_page": 6
+        "posts_per_page": 6,
+        "image_sizes": {
+            "xs": {
+                "width": 80,
+                "height": 80
+            },
+            "m": {
+                "width": 700,
+                "height": 1200
+            },
+            "l": {
+                "width": 1920
+            }
+        }
     }
 }

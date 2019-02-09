@@ -20,7 +20,7 @@ body{
     font-weight: 400;
     font-style: normal;
     color: #fff;
-    font-family: proxima-nova, sans-serif;
+    font-family: proxima-nova, 'Open Sans', sans-serif;
 }
 
 p,
@@ -33,7 +33,7 @@ li{
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
-    font-family: motiva-sans, sans-serif;
+    font-family: motiva-sans, 'Open Sans', sans-serif;
     font-weight: bold;
     margin: 50px 0 10px;
 }
@@ -53,7 +53,7 @@ a:hover{
     color: #fff;
     border: none;
     border-radius: 50px;
-    padding: 10px 50px;
+    padding: 10px 30px;
     cursor: pointer;
     position: relative;
 }
@@ -93,7 +93,7 @@ blockquote p{
     font-size: 28px;
     margin-left: -100px;
     margin: 50px 0;
-    font-family: motiva-sans, sans-serif;
+    font-family: motiva-sans, 'Open Sans', sans-serif;
     position: relative;
 }
 
@@ -135,7 +135,7 @@ time{
     position: relative;
     z-index: 2;
     font-variant: all-small-caps;
-    font-family: motiva-sans, sans-serif;
+    font-family: motiva-sans, 'Open Sans', sans-serif;
 }
 
 /* ==========================================================================
@@ -171,13 +171,19 @@ header .midnightHeader.black{
 header .site-logo span{
     font-size: 22px;
     font-weight: bold;
+    text-transform: lowercase;
+    font-family: motiva-sans, 'Open Sans', sans-serif;
+    margin-left: 6px;
+    line-height: 15px;
 }
 
 header .site-logo b{
     font-size: 22px;
     font-weight: bold;
     text-transform: lowercase;
+    font-family: motiva-sans, 'Open Sans', sans-serif;
     margin-left: 6px;
+    line-height: 15px;
 }
 
 header .site-logo b:before{
@@ -215,7 +221,7 @@ header .site-logo img{
 header .counter{
     font-size: 14px;
     font-variant: all-small-caps;
-    font-family: motiva-sans, sans-serif;
+    font-family: motiva-sans, 'Open Sans', sans-serif;
     position: absolute;
     right: 55px;
     top: 50%;
@@ -256,7 +262,7 @@ header .midnightHeader.black .counter{
 #menu h4{
     font-size: 14px;
     font-variant: all-small-caps;
-    font-family: motiva-sans, sans-serif;
+    font-family: motiva-sans, 'Open Sans', sans-serif;
     z-index: 2;
     display: inline-flex;
     margin: 40px;
@@ -330,7 +336,6 @@ header .midnightHeader.black .counter{
 
 #menu .inner{
     display: flex;
-    /* max-height: calc(100vh - 97px); */
     height: 100%;
     flex-direction: column;
     position: relative;
@@ -416,7 +421,7 @@ header .midnightHeader.black .counter{
 #menu .loop h5{
     font-size: 14px;
     font-variant: all-small-caps;
-    font-family: motiva-sans, sans-serif;
+    font-family: motiva-sans, 'Open Sans', sans-serif;
     margin-top: 50px;
     color: #6b6b6b;
     opacity: 0;
@@ -430,7 +435,7 @@ header .midnightHeader.black .counter{
 #menu .loop time{
     font-size: 14px;
     font-variant: all-small-caps;
-    font-family: motiva-sans, sans-serif;
+    font-family: motiva-sans, 'Open Sans', sans-serif;
     color: #818181;
 }
 
@@ -441,11 +446,16 @@ header .midnightHeader.black .counter{
     width: 100%;
 }
 
+#menu .loop ul:last-child{
+    padding-bottom: 20px;
+}
+
 #menu .loop ul li{
     margin: 20px 0;
     line-height: 24px;
     opacity: 0;
     position: relative;
+    padding-right: 30px;
 }
 
 #menu .navigation .os-host:not(.os-host-overflow-y) .os-content{
@@ -623,7 +633,7 @@ header .midnightHeader.black .counter{
 .tags{
     font-size: 14px;
     font-variant: all-small-caps;
-    font-family: motiva-sans, sans-serif;
+    font-family: motiva-sans, 'Open Sans', sans-serif;
     position: relative;
     z-index: 2;
     display: inline-flex;
@@ -699,6 +709,9 @@ header .midnightHeader.black .counter{
     left: 50%;
     margin-left: -10px;
     transform: rotate(-90deg);
+	-webkit-animation: arrow 2s linear infinite;
+	-moz-animation:    arrow 2s linear infinite;
+	animation:         arrow 2s linear infinite;
 }
 
 .read-later.active i{
@@ -766,7 +779,7 @@ header .midnightHeader.black .counter{
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    width: calc(100vw - 30px);
+    width: calc(100vw - 220px);
     max-width: 1440px;
     position: relative;
     left: 50%;
@@ -874,7 +887,7 @@ header .midnightHeader.black .counter{
     padding: 10px 20px;
     text-transform: uppercase;
     font-weight: bold;
-    font-family: motiva-sans, sans-serif;
+    font-family: motiva-sans, 'Open Sans', sans-serif;
     font-size: 12px;
     top: 50%;
     transform: translateY(-50%);
@@ -961,6 +974,26 @@ header .midnightHeader.black .counter{
     border-radius: 50%;
 }
 
+.author .links{
+    margin: 0 0 0 auto;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+}
+
+.author .links li{
+    margin: 0 0 0 20px;
+}
+
+.author .links li a{
+    color: #1B1B1B;
+}
+
+.author .links li a:hover{
+    color: #757575;
+}
+
 #content .share{
     position: fixed;
     top: 50%;
@@ -994,6 +1027,27 @@ header .midnightHeader.black .counter{
     background: transparent;
     color: #fff;
     margin: 0;
+}
+
+.fluidbox__overlay{
+    top: -100vh;
+    bottom: -100vh;
+}
+
+@-webkit-keyframes arrow {
+    0%      { transform:translate(0,-10px) rotate(-90deg); }
+    50%     { transform:translate(0,0) rotate(-90deg); }
+    100%    { transform:translate(0,-10px) rotate(-90deg); }
+}
+@-moz-keyframes arrow {
+    0%      { transform:translate(0,-10px) rotate(-90deg); }
+    50%     { transform:translate(0,0) rotate(-90deg); }
+    100%    { transform:translate(0,-10px) rotate(-90deg); }
+}
+@keyframes arrow {
+    0%      { transform:translate(0,-10px) rotate(-90deg); }
+    50%     { transform:translate(0,0) rotate(-90deg); }
+    100%    { transform:translate(0,-10px) rotate(-90deg); }
 }
 
 /* ==========================================================================
@@ -1111,12 +1165,18 @@ footer h3{
     }
     #menu h4{
         position: relative;
+        margin: 15px;
+    }
+    #menu .navigation .inner{
+        margin: 20px 0;
     }
     #menu .bookmarks {
         padding-top: 0;
     }
     #menu .bookmarks .no-bookmarks{
         padding: 50px 0;
+        display: block;
+        height: auto;
     }
     .menu-column{
         order: 1;
@@ -1127,8 +1187,29 @@ footer h3{
     #menu .nav ul{
         margin-bottom: 30px;
     }
+    #menu .loop{
+        padding: 0 15px;
+    }
+    #menu .bookmarks h5:first-child {
+        margin-top: 15px;
+    }
+    .modal .close{
+        top: 11px;
+        right: 15px;
+    }
     .search form{
         margin-top: 0;
+    }
+    .search form #search-field{
+        margin-top: 30px;
+    }
+    .search form #search-field{
+        width: calc(100% - 30px);
+        margin-left: 15px;
+    }
+    #menu #results {
+        height: auto;
+        min-height: 100px;
     }
     #content .swiper-main .share a{
         width: 35px;
@@ -1153,6 +1234,18 @@ footer h3{
     .editor-content iframe[src*="https://www.youtube.com/"],
     .editor-content iframe[src*="https://player.vimeo.com/"] {
         height: calc(570px / 1.77777778) !important;
+    }
+    .editor-content .kg-gallery-container{
+        width: 100vw;
+    }
+    .post-nav .loop{
+        flex-direction: column;
+    }
+    .post-nav .loop .post{
+        width: 100%;
+    }
+    .next-post, .prev-post{
+        display: none;
     }
 }
 
@@ -1192,15 +1285,6 @@ footer h3{
     }
     .post-content{
         padding-top: 50px;
-    }
-    .post-nav .loop{
-        flex-direction: column;
-    }
-    .post-nav .loop .post{
-        width: 100%;
-    }
-    .next-post, .prev-post{
-        display: none;
     }
     .share li a{
         margin: 0 5px;
