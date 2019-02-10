@@ -7,14 +7,25 @@
 		<div class="col-12">
 			<div class="swiper-main loop swiper-container">
 				<div class="swiper-wrapper">
+					{{^is "paged"}}
+						{{#get "posts" limit="all" include="tags,authors" filter="featured:true"}}
+							{{#foreach posts}}
+								<div class="swiper-slide">
+									{{> "loop"}}
+								</div>
+							{{/foreach}}
+						{{/get}}
+					{{/is}}
 					{{#foreach posts}}
+						{{^if featured}}
 						<div class="swiper-slide">
 							{{> "loop"}}
 						</div>
+						{{/if}}
 					{{/foreach}}
 				</div>
-				<div class="swiper-button-next" data-hover></div>
-    			<div class="swiper-button-prev" data-hover></div>
+				<div class="swiper-button-next"></div>
+    			<div class="swiper-button-prev"></div>
 			</div>
 		</div>
 	</div>

@@ -1,6 +1,6 @@
 {
     "name": "okiku",
-    "description": "",
+    "description": "Okiku is a modern horizontal music Ghost theme filled with awesome effects. The theme is responsive, fast, clean with tasty typography and big images.",
     "demo": "https://okiku.hauntedthemes.com/",
     "version": "1.0.0",
     "license": "GNU General Public License, Version 2",
@@ -16,7 +16,7 @@
     "gpm": {
         "type": "theme",
         "categories": [
-            "Writer"
+            "Music"
         ]
     },
     "keywords": [
