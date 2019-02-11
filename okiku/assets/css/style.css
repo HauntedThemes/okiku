@@ -142,7 +142,7 @@ time{
    2. Header
    ========================================================================== */
 
-   header{
+header{
     position: fixed;
     width: 100%;
     z-index: 990;
@@ -332,6 +332,18 @@ header .midnightHeader.black .counter{
     position: relative;
     display: block;
     cursor: pointer;
+}
+
+#menu .nav ul li:last-child{
+    font-size: 24px;
+}
+
+#menu .nav ul li:last-child a{
+    margin: 0 15px;
+}
+
+#menu .nav ul li:last-child:after{
+    display: none;
 }
 
 #menu .inner{
@@ -1136,6 +1148,12 @@ footer h3{
         font-size: 24px;
         margin: 10px 0;
     }
+    #menu .nav ul li:last-child a {
+        margin: 0 10px;
+    }
+    #menu .nav ul li:last-child{
+        font-size: 18px;
+    }
     input[type="text"], input[type="email"], textarea{
         font-size: 16px;
         padding: 10px 20px 9px 20px;
@@ -1186,6 +1204,9 @@ footer h3{
     }
     #menu .nav ul{
         margin-bottom: 30px;
+    }
+    .modal .modal-content{
+        background-color: #0f0f0f;
     }
     #menu .loop{
         padding: 0 15px;

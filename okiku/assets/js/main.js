@@ -6,8 +6,8 @@ jQuery(document).ready(function($) {
 
     var config = {
         'disqus-shortname': 'hauntedthemes-demo',
-        'content-api-host': 'https://okiku.hauntedthemes.com',
-        'content-api-key': 'aa89dccc8b819576f92c891b03',
+        'content-api-host': '',
+        'content-api-key': '',
     };
 
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),

@@ -4,5 +4,13 @@
         {{#foreach navigation}}
             <li class="nav-{{slug}}{{#if current}} nav-current{{/if}}"><a href="{{url absolute="true"}}" title="{{label}}">{{label}}</a></li>
         {{/foreach}}
+        <li>
+            {{#if @site.facebook}}
+                <a href="{{facebook_url}}" class="facebook" target="_blank" data-toggle="tooltip" data-placement="top" title="{{@site.facebook}}"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+            {{/if}}
+            {{#if @site.twitter}}
+                <a href="{{twitter_url}}" class="twitter" target="_blank" data-toggle="tooltip" data-placement="top" title="{{@site.twitter}}"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+            {{/if}}
+        </li>
     </ul>
 </nav>
